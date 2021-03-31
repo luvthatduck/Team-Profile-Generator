@@ -9,7 +9,10 @@ const Intern = require('./lib/intern');
 const Manager = require('./lib/Manager');
 
 const employees = [];
+
+// Create employee objects from input
 // promted to enter team manager's name, id, email and office number
+
 function askManagerQues() {
   inquirer.prompt([
     {
@@ -30,7 +33,7 @@ function askManagerQues() {
     {
       type: 'number',
       name: 'officenumber',
-      messasge: "Enter Manager's Office Number",
+      message: "Enter Manager's Office Number",
     },
   ])
     .then(RESP => {
@@ -68,12 +71,12 @@ function askEngineerQues() {
   ]).then(RESP => {
     const engineer = new Engineer(RESP.engineername, RESP.engineerid, RESP.engineeremail, RESP.github);
     employees.push(engineer);
-    // console.log(engineer);
     start();
   })
 };
-// // If intern is chosen 
 
+
+//// If intern is chosen 
 function askInternQues() {
   inquirer.prompt([
     {
@@ -105,18 +108,15 @@ function askInternQues() {
 };
 
 
-
 function start() {
   inquirer.prompt([
-
-
     //prompted with menu with option to add engineer, intern or to
     // finish building team 
     {
       type: 'list',
       name: 'position',
       messasge: "Enter which postition to add next?",
-      choices: ['Manager', 'Engineer', 'Intern', 'Finished building team'],
+      choices: ['Manager', 'Engineer', 'Intern', 'Finished building team!'],
     },
 
   ]).then(function (response) {
@@ -126,9 +126,9 @@ function start() {
     } else if (response.position === 'Engineer') {
       askEngineerQues();
     } else if (response.position === 'Intern') {
-
+      askInternQues();
     } else {
-      generateHTML()
+      generateHTML();
     }
   })
 }
@@ -137,18 +137,15 @@ function generateHTML() {
   for (let empy of employees) {
     console.log(empy);
   }
+  // writeToFile();
 }
 
-
-// Create employee objects from input
-// const empy = new Employee(response.name, 0, '');
-// console.log('empy', empy);
 
 // Create HMTL from employee objects
 
 // Write out that html for a file
-function writeToFile(data) {
-  fs.writeFile('./dist/index.html', data, err => {
+function writeToFile(generateHTML) {
+  fs.writeFile('./dist/index.html', generateHTML, err => {
     if (err) {
 
       return;
@@ -156,3 +153,5 @@ function writeToFile(data) {
   })
 };
 start();
+
+// writeToFile();
