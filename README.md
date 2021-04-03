@@ -18,6 +18,8 @@ Node.js, Jest and Inquirer are used.
 ## Usage
 This is a user input application that takes in specific information about employees to display a roster in an HTML generated page. Employees included are Manager, Engineer and Intern.  
 
+View walkthrough video [HERE](https://drive.google.com/file/d/1cJZgn_s5MlcEAh0arSzmKGr_4QhlVcEO/view).
+
 ## Contribution
 Please follow github protocols. 
 
