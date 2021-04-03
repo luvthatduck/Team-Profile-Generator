@@ -2,7 +2,6 @@
 // Need to get input from user - inquirer
 const fs = require('fs');
 const inquirer = require('inquirer');
-// const pageTemplate = require('./src/page-template');
 const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
@@ -39,7 +38,6 @@ function askManagerQues() {
     .then(RESP => {
       const manager = new Manager(RESP.managername, RESP.managerid, RESP.manageremail, RESP.officenumber);
       employees.push(manager);
-      // console.log(manager.getRole());
       start();
     })
 };
@@ -102,11 +100,9 @@ function askInternQues() {
   ]).then(RESP => {
     const intern = new Intern(RESP.internname, RESP.internid, RESP.internemail, RESP.school);
     employees.push(intern);
-    // console.log(intern);
     start();
   })
 };
-
 
 function start() {
   inquirer.prompt([
@@ -171,8 +167,7 @@ function generateHTML() {
   htmlArray.push(htmlHead);
 
   for (let i = 0; i < employees.length; i++) {
-   console.log(employees[i].name)
-   
+ 
     let object = `
     <div class="column is-one-third">
         <div class="card">
