@@ -7,4 +7,5 @@ test('creates a named engineer object', () => {
   expect(engineer.id).toEqual(1234);
   expect(engineer.email).toEqual('christ@chrisy.com');
   expect(engineer.github).toEqual('chrisgithub');
+  expect(engineer.getRole()).toEqual("Engineer");
 })

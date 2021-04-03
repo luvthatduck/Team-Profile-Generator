@@ -2,10 +2,10 @@
 // Need to get input from user - inquirer
 const fs = require('fs');
 const inquirer = require('inquirer');
-
+// const pageTemplate = require('./src/page-template');
 const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/intern');
+const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 
 const employees = [];
@@ -131,27 +131,111 @@ function start() {
       generateHTML();
     }
   })
+
 }
 
-function generateHTML() {
-  for (let empy of employees) {
-    console.log(empy);
-  }
-  // writeToFile();
-}
-
-
+// Compile the team 
 // Create HMTL from employee objects
+function generateHTML() {
+  const htmlArray = [];
+
+  //Head and Section of HTML
+  const htmlHead = `
+  <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+  <title>Team Profile </title>
+</head>
+
+<body>
+  <section class="section">
+    <div class="container has-background-info-dark">
+      <h1 class="title has-text-centered has-text-white-ter">
+        Team Profile
+      </h1>
+      <p class="">
+
+      </p>
+    </div>
+  </section>
+  <section class="section has-background-link-light">
+    <div class="columns">
+
+      
+  `
+  htmlArray.push(htmlHead);
+
+  for (let i = 1; i < employees.length; i++) {
+    let object = `
+    <div class="column is-one-third">
+        <div class="card">
+    <header class="card-header">
+            <p class="card-header-title ">
+              ${employees.getRole()}
+            </p>
+            <button class="card-header-icon" aria-label="more options">
+              <span class="icon">
+              </span>
+            </button>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <p class="title">${(employees[i].name)}</p>
+            </div>
+          </div>
+          <p>
+            Employee ID: ${employees[i].id}
+          </p>
+          <p>
+            Email: <a href="mailto:${employees[i].email}">${employees[i].email}</a>
+          </p>
+          `
+    if (employees[i].officenumber) {
+      object = +`
+            <p>Office Number: ${(employees[i].officenumber)}
+            `
+    }
+    if (employees[i].github) {
+      object = +`
+            <p>GitHub: <a href="https://github.com/${(employees[i].github)}">${(employees[i].github)}</a>
+            </p>
+            `
+    }
+    if (employees[i].school) {
+      object = +`
+            <p>School:${(employees[i].school)}</p>
+            `
+    }
+    object += `
+          
+            </div >
+         </div >     
+     `
+     htmlArray.push(object)
+  }
+
+  const htmlFoot = `
+  </div>
+
+  </section>
+
+</body>
+
+</html>
+  `
+htmlArray.push(htmlFoot);
 
 // Write out that html for a file
-function writeToFile(generateHTML) {
-  fs.writeFile('./dist/index.html', generateHTML, err => {
-    if (err) {
+fs.writeFile(`./dist/generated-html.html`, htmlArray.join(""), function (err) {
+        
+})
+}
 
-      return;
-    }
-  })
-};
 start();
 
-// writeToFile();
+
