@@ -6,5 +6,5 @@ test('creates a named employee object', () => {
   expect(employee.name).toEqual('Bob');
   expect(employee.id).toEqual(9876);
   expect(employee.email).toEqual('bob@email.com');
-  expect(employee.getRole()).toEqual("Employee");
+
 })

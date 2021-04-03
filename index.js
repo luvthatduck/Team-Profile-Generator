@@ -39,7 +39,7 @@ function askManagerQues() {
     .then(RESP => {
       const manager = new Manager(RESP.managername, RESP.managerid, RESP.manageremail, RESP.officenumber);
       employees.push(manager);
-      // console.log(manager);
+      // console.log(manager.getRole());
       start();
     })
 };
@@ -170,22 +170,21 @@ function generateHTML() {
   `
   htmlArray.push(htmlHead);
 
-  for (let i = 1; i < employees.length; i++) {
+  for (let i = 0; i < employees.length; i++) {
+   console.log(employees[i].name)
+   
     let object = `
     <div class="column is-one-third">
         <div class="card">
     <header class="card-header">
             <p class="card-header-title ">
-              ${employees.getRole()}
+              ${employees[i].getRole()}
             </p>
-            <button class="card-header-icon" aria-label="more options">
-              <span class="icon">
-              </span>
-            </button>
+       
           </header>
           <div class="card-content">
             <div class="content">
-              <p class="title">${(employees[i].name)}</p>
+              <p class="title">${employees[i].name}</p>
             </div>
           </div>
           <p>
@@ -196,18 +195,18 @@ function generateHTML() {
           </p>
           `
     if (employees[i].officenumber) {
-      object = +`
-            <p>Office Number: ${(employees[i].officenumber)}
+      object += `
+            <p>Office Number: ${employees[i].officenumber}
             `
     }
     if (employees[i].github) {
-      object = +`
+      object +=`
             <p>GitHub: <a href="https://github.com/${(employees[i].github)}">${(employees[i].github)}</a>
             </p>
             `
     }
     if (employees[i].school) {
-      object = +`
+      object +=`
             <p>School:${(employees[i].school)}</p>
             `
     }
@@ -217,6 +216,7 @@ function generateHTML() {
          </div >     
      `
      htmlArray.push(object)
+  
   }
 
   const htmlFoot = `
